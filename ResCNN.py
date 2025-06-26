@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import models
 from torchvision.models import ResNet34_Weights
+from torchsummary import summary
 
 class ResidualDoubleConv(nn.Module):
     """残差双卷积块（带通道注意力机制）"""

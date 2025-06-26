@@ -61,8 +61,8 @@ class H5DatasetLarge(Dataset):
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
-outx = 100
-outy = 100
+outx = 200
+outy = 200
 
 resize_transform = transforms.Resize(
     size=(outx, outy),         # 目标尺寸
@@ -174,7 +174,7 @@ if __name__ == '__main__':
     # bs = 5000
     # learning rate
     # lr = 0.00000001
-    lr = 1e-7
+    lr = 5e-8
     # epoch
     epoch = 20
     # checkpoints,模型保存路径
@@ -187,27 +187,36 @@ if __name__ == '__main__':
     random_mode = 0
     val_mode = 0
     #load .mat
-    # file_path = "data/nyu_depth_v2_labeled.mat"
-    # dataset = H5Dataset(file_path)
-    # file_path = "data/ID_20000_40000.mat"
     file_path = "../Distill-Any-Depth/data/ID_0_20000.mat"
+    file_path1 = "../Distill-Any-Depth/data/ID_20000_40000.mat"
     file_path2 = "../Distill-Any-Depth/data/NYU.mat"
     file_path3 = "../Distill-Any-Depth/data/person.mat"
+    file_path4 = "../Distill-Any-Depth/data/ID_40000_60000.mat"
+    file_path5 = "../Distill-Any-Depth/data/dance.mat"
     # file_path = "data/ID_0_20000.mat"
     dataset = H5DatasetLarge(file_path)
+    dataset1 = H5DatasetLarge(file_path1)
     dataset2 = H5DatasetLarge(file_path2)
     dataset3 = H5DatasetLarge(file_path3)
+    dataset4 = H5DatasetLarge(file_path4)
+    dataset5 = H5DatasetLarge(file_path5)
     data_size = dataset.__len__()
     # val_data_size = int(data_size*0.1)
     val_data_size = 1000
     batch_size = 16
-    train_dataset = Subset(dataset, range(val_data_size, data_size))
-    train_dataset = ConcatDataset([train_dataset,dataset2, dataset3])
+    # train_dataset = Subset(dataset, range(val_data_size, data_size))
+    train_dataset = ConcatDataset([dataset3, dataset2, dataset5, dataset, dataset1, dataset4])
     train_data = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=16)
     
-    val_dataset = Subset(dataset, range(val_data_size))
+    # val_dataset = Subset(dataset, range(val_data_size))
+    val_dataset = dataset2
+    val_data_size = val_dataset.__len__()
     val_data = DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=16)
     train_data_size = train_dataset.__len__()
+    
+    # val_dataset = Subset(dataset, range(val_data_size))
+    # val_data = DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=16)
+    # train_data_size = train_dataset.__len__()
     # 加载模型
     # model_path = checkpoints+"/best_model.pth"
     # model_path = checkpoints+"/last22.pth"
@@ -217,7 +226,7 @@ if __name__ == '__main__':
     # print("Model Path", model_path)
     # model = torch.load(model_path, weights_only=False)
     model = UNet(in_channels=3, out_channels=1)
-    model.load_state_dict(torch.load(checkpoints+'/last.pth', weights_only=False).state_dict())
+    model.load_state_dict(torch.load(checkpoints+'/last22.pth', weights_only=False).state_dict())
     
     # GPU是否可用，如果可用，则使用GPU
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

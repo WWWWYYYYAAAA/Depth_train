@@ -175,9 +175,9 @@ if __name__ == '__main__':
     # bs = 5000
     # learning rate
     # lr = 0.00000001
-    lr = 5e-7
+    lr = 1e-6
     # epoch
-    epoch = 5
+    epoch = 10
     # checkpoints,模型保存路径
     checkpoints = 'CNN2'
     os.makedirs(checkpoints, exist_ok=True)

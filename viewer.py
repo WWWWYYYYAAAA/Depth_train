@@ -11,7 +11,7 @@ import cv2
 # from safetensors.torch import load_file
 
 # 初始化摄像头
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # 检查摄像头是否成功打开
 if not cap.isOpened():
@@ -20,7 +20,7 @@ if not cap.isOpened():
 # 加载模型
 device = "cuda" if torch.cuda.is_available() else "cpu"
 # checkpoint_path = "./model/model_small.safetensors"
-checkpoints = 'CNN2'
+checkpoints = 'CNN1'
 model_path = checkpoints+"/best_model.pth"
 # model_path = checkpoints+"/last.pth"
 # model_path = "test/MS_80e.pth"

@@ -63,7 +63,7 @@ def process_frame(image):
     return depth_colored
 
 dir_in = "./pic_demo/IN/"
-dir_out = "./pic_demo/OUT2/"
+dir_out = "./pic_demo/OUT01/"
 
 # 处理帧并显示结果
 for p in range(16):

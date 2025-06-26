@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class DepthLossL3(nn.Module):
-    def __init__(self, alpha=0.75, rank_margin=0.05, device="cuda:0"):
+    def __init__(self, alpha=0.8, rank_margin=0.05, device="cuda:0"):
         super().__init__()
         self.alpha = alpha      # MAE vs Grad 平衡因子
         self.rank_margin = rank_margin
