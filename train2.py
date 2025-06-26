@@ -175,9 +175,9 @@ if __name__ == '__main__':
     # bs = 5000
     # learning rate
     # lr = 0.00000001
-    lr = 1e-6
+    lr = 5e-7
     # epoch
-    epoch = 20
+    epoch = 5
     # checkpoints,模型保存路径
     checkpoints = 'CNN2'
     os.makedirs(checkpoints, exist_ok=True)
@@ -195,17 +195,21 @@ if __name__ == '__main__':
     file_path1 = "../Distill-Any-Depth/data/ID_20000_40000.mat"
     file_path2 = "../Distill-Any-Depth/data/NYU.mat"
     file_path3 = "../Distill-Any-Depth/data/person.mat"
+    file_path4 = "../Distill-Any-Depth/data/ID_40000_60000.mat"
+    file_path5 = "../Distill-Any-Depth/data/dance.mat"
     # file_path = "data/ID_0_20000.mat"
     dataset = H5DatasetLarge(file_path)
     dataset1 = H5DatasetLarge(file_path1)
     dataset2 = H5DatasetLarge(file_path2)
     dataset3 = H5DatasetLarge(file_path3)
+    dataset4 = H5DatasetLarge(file_path4)
+    dataset5 = H5DatasetLarge(file_path5)
     data_size = dataset.__len__()
     # val_data_size = int(data_size*0.1)
     val_data_size = 1000
     batch_size = 16
     # train_dataset = Subset(dataset, range(val_data_size, data_size))
-    train_dataset = ConcatDataset([dataset, dataset1, dataset3])
+    train_dataset = ConcatDataset([dataset3, dataset2, dataset5, dataset, dataset1, dataset4])
     train_data = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=16)
     
     # val_dataset = Subset(dataset, range(val_data_size))

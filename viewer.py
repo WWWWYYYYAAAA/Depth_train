@@ -21,8 +21,8 @@ if not cap.isOpened():
 device = "cuda" if torch.cuda.is_available() else "cpu"
 # checkpoint_path = "./model/model_small.safetensors"
 checkpoints = 'CNN2'
-# model_path = checkpoints+"/best_model.pth"
-model_path = checkpoints+"/last.pth"
+model_path = checkpoints+"/best_model.pth"
+# model_path = checkpoints+"/last.pth"
 # model_path = "test/MS_80e.pth"
 model = torch.load(model_path, weights_only=False)
 

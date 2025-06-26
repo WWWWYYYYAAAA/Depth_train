@@ -13,27 +13,22 @@ import cv2
 # 加载模型
 device = "cuda" if torch.cuda.is_available() else "cpu"
 # checkpoint_path = "./model/model_small.safetensors"
-checkpoints = 'CNN1'
+checkpoints = 'CNN2'
 # model_path = checkpoints+"/best_model.pth"
 model_path = checkpoints+"/last.pth"
 # model_path = "test/MS_80e.pth"
 model = torch.load(model_path, weights_only=False)
 
 
-outx = 100
-outy = 100
+outx = 200
+outy = 200
 
 resize_transform = transforms.Resize(
     size=(outx, outy),         # 目标尺寸
     interpolation=Image.BILINEAR  # 插值方法
 )
 
-t1, t2, t3, t4 = 0, 0, 0, 0
-size_h = 200
-size_w = 200
-ones_subarray = np.zeros((size_h, size_w, 3))
-start_h = 160
-start_w = 160
+
 # 处理函数
 def process_frame(image):
     # 转换颜色空间并调整尺寸
@@ -68,7 +63,7 @@ def process_frame(image):
     return depth_colored
 
 dir_in = "./pic_demo/IN/"
-dir_out = "./pic_demo/OUT/"
+dir_out = "./pic_demo/OUT2/"
 
 # 处理帧并显示结果
 for p in range(16):
